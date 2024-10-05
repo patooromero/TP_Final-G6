@@ -28,3 +28,7 @@
 
 3. Verificar que esta corriendo
   - Entrar a localhost:8000
+
+------------------------------------
+Archivo forkeado. 
+1. Creacion del entorno virtual
