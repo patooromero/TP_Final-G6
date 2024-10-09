@@ -1,6 +1,8 @@
 
 .contenedor{
-	background-color: aqua;
+	/*background-color: rgb(232, 236, 168);*/
+	background-color: brown;
+	
 }
 
 .centrar{
@@ -10,8 +12,14 @@
 .bloque{
 	text-align: center;
 	padding: 100px;
+	background-color: aliceblue;
+	margin: 0 30px 0 30px
 }
 
 .submenu{
 	font-size: 18px	;
+}
+
+.logo, .secciones, .usuario {
+	display: inline;
 }
