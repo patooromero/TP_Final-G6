@@ -1,4 +1,8 @@
 
+body{
+	margin: 0;
+}
+
 .contenedor{
 	/*background-color: rgb(232, 236, 168);*/
 	background-color: brown;
@@ -7,6 +11,8 @@
 
 .centrar{
 	text-align: center;
+	background-color: rgb(255, 225, 220);
+	border-bottom: 2px solid black;
 }
 
 .bloque{
