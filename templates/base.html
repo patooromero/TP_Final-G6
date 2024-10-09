@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MI WEB | {% block titulo %}{% endblock titulo %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+</head>
+<body class="contenedor">
+    <div id="particles-js"></div>
+    <header class="header">
+        <div class="logo">
+            <img src="{% static 'img/logog6.png' %}" alt="" height="150"> <!-- Ruta corregida -->
+        </div>    
+        <div class="titulo">
+            <h1>G6 Blog de Divulgación IA</h1> <!-- Título del encabezado -->
+        </div>        
+        <nav>
+            <ul class="nav-links">
+                <a href="{% url 'home' %}">HOME</a>
+                <a href="{% url 'nosotros' %}">NOSOTROS</a>
+                <a href="{% url 'noticias:listar' %}">NOTICIAS</a>
+                {% if user.is_authenticated %}
+                    <strong>Hola {{ user.username }}</strong>
+                    <a href="{% url 'logout' %}"class="btn"><button>LOGOUT</button></a>
+                {% else %}
+                    <a href="{% url 'login' %}"class="btn"><button>LOGIN</button></a>
+                    <a href="{% url 'usuarios:registro' %}"class="btn"><button>REGISTRARSE</button></a>
+                {% endif %}
+                </ul>
+        </nav>
+    </header>
+
+    <main class="bloque">
+        {% block contenido %}
+        {% endblock contenido %}
+    </main>
+    <footer class="footer">
+        <div>
+            <ul class="list">
+                <li><a href="{% url 'home' %}">HOME</a></li>
+                <li><a href="{% url 'nosotros' %}">NOSOTROS</a></li>
+                <li><a href="#">X</a></li>
+                <li><a href="#">INSTAGRAM</a></li>
+                <li><a href="#">LINKEDIN</a></li>
+            </ul>
+        </div>
+        <div class="text-footer-center">
+            <p>&copy; 2024 G6 Blog de Divulgación IA - Todos los Derechos Reservados.</p>
+        </div>
+    </footer>  
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/particles.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

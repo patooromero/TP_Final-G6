@@ -1,0 +1,258 @@
+/* Reset CSS para eliminar márgenes y rellenos predeterminados */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Incluye el padding y el borde en el tamaño total */
+}
+html{
+    height: 100%;
+}
+
+body {
+    font-family: sans-serif;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 80px;
+    color: #ffffff; /* Cambia el color de la fuente del cuerpo */
+}
+
+#particles-js {
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    width: 100%;
+    position: fixed; /* Mantiene el fondo fijo */
+    z-index: -1; /* Asegura que esté detrás de otros elementos */
+}
+
+.contenedor {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/fondo.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.logo {
+    display: flex;
+    text-align: center;
+    align-items: center; /* Centra verticalmente */
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px; /* Ajusta el padding según sea necesario */
+    min-height: 100vh;
+}
+
+.bloque{
+    position:relative;
+    flex:1 0 auto;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+.submenu {
+    font-size: 18px;
+}
+
+h2 {
+    color: #ffffff; /* Color blanco */
+    font-size: 2em; /* Ajusta el tamaño de la fuente si es necesario */
+    text-align: center; /* Centra el texto */
+}
+
+h1 {
+    color: #ffffff; /* Color blanco */
+    font-size: 2em; /* Ajusta el tamaño de la fuente si es necesario */
+    text-align: center; /* Centra el texto */
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+header {
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)); /* Gradiente de oscuro a transparente */
+    padding: 20px; /* Espaciado interno */
+    text-align: center; /* Centra el contenido */
+}
+
+.header .logo{
+    cursor: pointer;
+}
+
+.header .logo img{
+    height: 80px;
+    width: auto;
+    transition: all 0.3s;
+}
+
+.header .logo img:hover{
+    transform: scale(1.2);
+}
+
+.header .btn button{
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+    padding: 9px 25px;
+    background: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.header .btn button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el ratón */
+    border-color: #0056b3; /* Color del borde al pasar el ratón */
+}
+
+header nav a {
+    margin: 0 15px; /* Espaciado entre los enlaces */
+    color: #ffffff; /* Color de los enlaces */
+    text-decoration: none; /* Sin subrayado */
+    text-align: center; /* Centra el contenido */
+}
+
+header nav a:hover {
+    text-decoration: none; /* Subrayar al pasar el ratón */
+    color: #007bff;
+    transform: scale(1.2);
+}
+
+nav {
+    margin-left: auto; /* Empuja el nav a la derecha */
+}
+
+/* Formulario Registro */
+h3 {
+    color: #ffffff; /* Cambia el color del encabezado */
+    padding-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Color de fondo del botón */
+    border-color: #007bff; /* Color del borde del botón */
+    margin-top: 20px;
+    padding: 15px 20px; /* Aumenta el padding para hacer el botón más grande */
+    font-size: 16px; /* Aumenta el tamaño de la fuente */
+    border-radius: 5px; /* Ajusta el radio de los bordes si lo deseas */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el ratón */
+    border-color: #0056b3; /* Color del borde al pasar el ratón */
+}
+
+.container {
+    margin-top: 50px; /* Espacio superior */
+}
+
+.card {
+    background: rgba(0, 0, 0, 0.7); /* Fondo negro con opacidad */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Previene que el contenido sobresalga */
+}
+
+.card-header {
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo del encabezado más oscuro */
+    color: white; /* Color del texto */
+}
+
+.card-body {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo del cuerpo con opacidad */
+    padding: 20px; /* Espaciado interno */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Espacio inferior entre los campos */
+}
+
+label {
+    display: block; /* Asegura que las etiquetas estén en una línea separada */
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el campo */
+    color: white; /* Color de las etiquetas */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Hace que el campo ocupe todo el ancho de su contenedor */
+    max-width: 400px; /* Establece un ancho máximo, ajusta según sea necesario */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ced4da; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-bottom: 15px; /* Espacio inferior */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad para los campos */
+}
+
+.centro-imagen {
+    display: block;
+    margin: 0 auto;
+}
+
+footer {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)); /* Gradiente de oscuro a transparente */
+    color: #fff;
+    height: 100px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+
+.footer .list {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.footer .list li {
+    margin: 0 15px;
+}
+
+.footer .list li a {
+    color: #ffffff; /* Color de los enlaces */
+    text-decoration: none; /* Sin subrayado */
+    text-align: center;
+    transition: all 0.3s; /* Agregar transición para los efectos */
+}
+
+.footer .list li a:hover {
+    color: #007bff; /* Mismo color de hover que en el header */
+    transform: scale(1.2); /* Mismo efecto de escala que en el header */
+    text-decoration: none; /* Sin subrayado al pasar el ratón */
+}
+
+.noticias {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.noticia {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
