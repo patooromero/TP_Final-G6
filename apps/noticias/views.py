@@ -6,10 +6,29 @@ from .models import Noticia, Categoria, Comentario
 
 from django.urls import reverse_lazy
 
-from .forms import NoticiaForm
+from .forms import NoticiaForm, CategoriaForm
+
+from django.shortcuts import get_object_or_404
+
+@login_required
+def Crear_Categoria(request):
+	contexto = {'form': CategoriaForm()}
+
+	if request.method == 'POST':
+		form = CategoriaForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('noticias:crear_categoria')
+		else:
+			contexto['form'] = form
+
+	return render(request, 'noticias/crear_categoria.html', contexto)
+
 
 @login_required
 def Crear_Noticia(request):
+    contexto = {'form': NoticiaForm()}
+
     if request.method == 'POST':
         form = NoticiaForm(request.POST, request.FILES)
         if form.is_valid():
@@ -17,7 +36,7 @@ def Crear_Noticia(request):
             return redirect(reverse_lazy('noticias:crear_noticia'))
     else:
         form = NoticiaForm()
-    return render(request, 'noticias/crear.html', {'form': form})
+    return render(request, 'noticias/crear.html', contexto)
 
 @login_required
 def Listar_Noticias(request):
@@ -73,6 +92,14 @@ def delete_comment(request, comment_id):
         # Por ejemplo, mostrar un mensaje de error
         return render(request, 'error.html')
 
+@login_required
+def eliminar_noticia(request, pk):
+    noticia = Noticia.objects.get(pk=pk)
+    if request.user == noticia.usuario:
+        noticia.delete()
+        return redirect('noticias:listar')
+    else:
+        return render(request, 'noticias/error.html', {'mensaje': 'No tienes permiso para eliminar esta noticia'})
 
 #{'nombre':'name', 'apellido':'last name', 'edad':23}
 #EN EL TEMPLATE SE RECIBE UNA VARIABLE SEPARADA POR CADA CLAVE VALOR

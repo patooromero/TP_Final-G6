@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}CREAR NOTICIAS{% endblock titulo %}
+
+
+{% block contenido %}
+	<div>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Crear</button>
+        </form>
+    </div>
+{% endblock contenido %}

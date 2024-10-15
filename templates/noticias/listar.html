@@ -6,7 +6,7 @@
 
 {% block contenido %}
 	<div class="submenu">
-
+		<a href="{% url 'noticias:crear_noticia' %}">Nueva</a> 
 		<a href="{% url 'noticias:listar' %}">TODAS</a>
 		{% for cat in categorias %}
 			<a href="?id={{cat.pk}}">{{cat.nombre}}</a>
@@ -24,6 +24,7 @@
 		<p>FECHA: {{noti.fecha}}</p>
 		<p>CATEGORIA: {{noti.categoria_noticia}}</p>
 		<p>CUERPO: {{noti.cuerpo}}</p>
+		<p>Publicado por: {{ noti.usuario.nombre }} {{ noti.usuario.apellido }}</p>
 		<br><br>
 	{% endfor %}
 {% endblock contenido %}
