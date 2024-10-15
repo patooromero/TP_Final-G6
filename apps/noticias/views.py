@@ -1,14 +1,9 @@
 from django.shortcuts import render, redirect
-
 from django.contrib.auth.decorators import login_required
-
 from .models import Noticia, Categoria, Comentario
-
 from django.urls import reverse_lazy
-
 from .forms import NoticiaForm, CategoriaForm
-
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 @login_required
 def Crear_Categoria(request):
@@ -33,7 +28,7 @@ def Crear_Noticia(request):
         form = NoticiaForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse_lazy('noticias:crear_noticia'))
+            return redirect(reverse_lazy('noticias:listar'))
     else:
         form = NoticiaForm()
     return render(request, 'noticias/crear.html', contexto)

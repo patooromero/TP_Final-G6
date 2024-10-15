@@ -6,3 +6,4 @@ admin.site.register(Categoria)
 admin.site.register(Noticia)
 admin.site.register(Perfil)
 
+
