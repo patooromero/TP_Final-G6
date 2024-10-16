@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Crear Noticia{% endblock titulo %}
+
+{% block contenido %}
+    <h2>Crear Nueva Noticia</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="{% url 'noticias:listar' %}">Volver</a>
+{% endblock contenido %}
