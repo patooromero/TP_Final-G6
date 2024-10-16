@@ -19,19 +19,21 @@ def Crear_Categoria(request):
 
 	return render(request, 'noticias/crear_categoria.html', contexto)
 
-
 @login_required
 def Crear_Noticia(request):
-    contexto = {'form': NoticiaForm()}
-
     if request.method == 'POST':
         form = NoticiaForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect(reverse_lazy('noticias:listar'))
+            noticia = form.save(commit=False)
+            noticia.usuario = request.user
+            noticia.save()
+            return redirect('noticias:listar')
+        else:
+            print(form.errors)
     else:
         form = NoticiaForm()
-    return render(request, 'noticias/crear.html', contexto)
+    
+    return render(request, 'noticias/crear.html', {'form': form})
 
 @login_required
 def Listar_Noticias(request):

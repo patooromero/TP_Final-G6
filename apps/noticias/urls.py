@@ -19,5 +19,6 @@ urlpatterns = [
     path('comentario/delete/<int:comment_id>', views.delete_comment, name='delete_comment'),
     
 	path('noticias/eliminar/<pk>/', views.eliminar_noticia, name='eliminar_noticia'),
+    
 	
 ]
