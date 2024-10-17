@@ -11,7 +11,7 @@
 		<p>FECHA: {{noticia.fecha}}</p>
 		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
 		<p>CUERPO: {{noticia.cuerpo}}</p>
-		<p>Publicado por: {{ noticia.usuario.nombre }} {{ noticia.usuario.apellido }}</p>
+		<p>Publicado por: {{ noticia.usuario }}</p>
 		{% if request.user.is_authenticated and request.user == noticia.usuario %}
 			<a href="{% url 'noticias:eliminar_noticia' noticia.pk %}">Eliminar</a>
 	    {% endif %}

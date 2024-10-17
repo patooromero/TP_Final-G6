@@ -21,6 +21,7 @@
                 <a href="{% url 'home' %}">HOME</a>
                 <a href="{% url 'nosotros' %}">NOSOTROS</a>
                 <a href="{% url 'noticias:listar' %}">NOTICIAS</a>
+                <a href="{% url 'noticias:perfil_usuario' request.user.pk %}">Perfiles</a>
                 {% if user.is_authenticated %}
                     <strong>Hola {{ user.username }}</strong>
                     <a href="{% url 'logout' %}"class="btn"><button>LOGOUT</button></a>

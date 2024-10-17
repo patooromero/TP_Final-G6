@@ -1,14 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Noticia, Categoria, Comentario
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
+from .models import Noticia, Categoria, Comentario
 from .forms import NoticiaForm, CategoriaForm
-from django.shortcuts import get_object_or_404, redirect
+from apps.usuarios.models import Usuario
+
 
 @login_required
 def Crear_Categoria(request):
 	contexto = {'form': CategoriaForm()}
-
 	if request.method == 'POST':
 		form = CategoriaForm(request.POST)
 		if form.is_valid():
@@ -16,7 +17,6 @@ def Crear_Categoria(request):
 			return redirect('noticias:crear_categoria')
 		else:
 			contexto['form'] = form
-
 	return render(request, 'noticias/crear_categoria.html', contexto)
 
 @login_required
@@ -35,40 +35,31 @@ def Crear_Noticia(request):
     
     return render(request, 'noticias/crear.html', {'form': form})
 
-@login_required
+# @login_required
 def Listar_Noticias(request):
 	contexto = {}
-
 	id_categoria = request.GET.get('id',None)
-
 	if id_categoria:
 		n = Noticia.objects.filter(categoria_noticia = id_categoria)
 	else:
 		n = Noticia.objects.all() #RETORNA UNA LISTA DE OBJETOS
-
 	contexto['noticias'] = n
-
 	cat = Categoria.objects.all().order_by('nombre')
 	contexto['categorias'] = cat
-
 	return render(request, 'noticias/listar.html', contexto)
 
-@login_required
+# @login_required
 def Detalle_Noticias(request, pk):
 	contexto = {}
-
 	n = Noticia.objects.get(pk = pk) #RETORNA SOLO UN OBEJTO
 	contexto['noticia'] = n
-
 	c = Comentario.objects.filter(noticia = n)
 	contexto['comentarios'] = c
-
 	return render(request, 'noticias/detalle.html',contexto)
 
 
 @login_required
 def Comentar_Noticia(request):
-
 	com = request.POST.get('comentario',None)
 	usu = request.user
 	noti = request.POST.get('id_noticia', None)# OBTENGO LA PK
@@ -82,7 +73,6 @@ def delete_comment(request, comment_id):
     comentario = get_object_or_404("Aqui_va_el_modelo_de_comentario", pk=comment_id)
     if comentario.usuario == request.user:
         comentario.delete()   
-
         return redirect(reverse_lazy('noticias:home'))
     else:
         # Manejar el caso en el que el usuario intenta eliminar un comentario que no es suyo
@@ -97,6 +87,21 @@ def eliminar_noticia(request, pk):
         return redirect('noticias:listar')
     else:
         return render(request, 'noticias/error.html', {'mensaje': 'No tienes permiso para eliminar esta noticia'})
+
+@login_required
+def perfil_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+    contexto = {'usuario': usuario}
+    return render(request, 'noticias/perfil_usuario.html', contexto)
+
+@login_required
+def perfil_usuario_list(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+    usuarios = Usuario.objects.all()
+    contexto = {'usuario': usuario, 'usuarios': usuarios}
+    return render(request, 'noticias/perfil_usuario.html', contexto)
+
+
 
 #{'nombre':'name', 'apellido':'last name', 'edad':23}
 #EN EL TEMPLATE SE RECIBE UNA VARIABLE SEPARADA POR CADA CLAVE VALOR
