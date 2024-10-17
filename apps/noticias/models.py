@@ -27,3 +27,12 @@ class Comentario(models.Model):
 	fecha = models.DateTimeField(auto_now_add=True)
 	def __str__(self):
 		return f"{self.noticia.titulo}->{self.texto}"
+	
+class Denuncia(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)  # Usuario que realiza la denuncia
+    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE)  # Noticia denunciada
+    razon = models.TextField()  # Motivo de la denuncia
+    fecha = models.DateTimeField(auto_now_add=True)  # Fecha de creación de la denuncia
+
+    def __str__(self):
+        return f'Denuncia de {self.usuario} sobre {self.noticia}'

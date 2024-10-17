@@ -5,13 +5,15 @@
 
 {% block contenido %}
     <h1>Perfil de {{ usuario.username }}</h1>
+    <br>
     <p>Nombre: {{ usuario.first_name }}</p>
     <p>Apellido: {{ usuario.last_name }}</p>
     <p>Email: {{ usuario.email }}</p>
     <p>Fecha de registro: {{ usuario.date_joined }}</p>
     <p>Ultima conexión: {{ usuario.last_login }}</p>
-
+    <br><br><br>
     <h2>Usuarios registrados</h2>
+    <br>
     <table>
         <tr>
             <th>Nombre de usuario</th>

@@ -1,0 +1,24 @@
+<!-- En templates/noticias/gestion_denuncia.html -->
+{% extends 'base.html' %}
+
+{% block titulo %}Gestionar Denuncia{% endblock titulo %}
+
+{% block contenido %}
+<h1>Gestionar Denuncia</h1>
+
+<div>
+    <h3>Detalles de la Denuncia</h3>
+    <p><strong>Denunciante:</strong> {{ denuncia.usuario.username }}</p>
+    <p><strong>Noticia Reportada:</strong> <a href="{% url 'noticias:detalle' denuncia.noticia.id %}">{{ denuncia.noticia.titulo }}</a></p>
+    <p><strong>Razón de la Denuncia:</strong> {{ denuncia.razon }}</p>
+    <p><strong>Fecha:</strong> {{ denuncia.fecha|date:"d M Y" }}</p>
+</div>
+
+<!-- Acciones para gestionar la denuncia -->
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="accion" value="aprobar" class="btn btn-success">Aprobar Denuncia</button>
+    <button type="submit" name="accion" value="rechazar" class="btn btn-danger">Rechazar Denuncia</button>
+</form>
+
+{% endblock contenido %}

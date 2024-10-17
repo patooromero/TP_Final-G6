@@ -22,6 +22,12 @@ urlpatterns = [
     
 	path('perfil/<pk>/', views.perfil_usuario, name='perfil_usuario'),
     
-   
+	path('reportar/<int:noticia_id>/', views.reportar_noticia, name='reportar_noticia'),
+	
+	path('denuncias/', views.denuncias, name='denuncias'),
+    
+	path('gestionar/<int:id>/', views.gestionar_denuncia, name='gestionar_denuncia'),
+    
+	path('eliminar/<int:id>/', views.eliminar_denuncia, name='eliminar_denuncia'),
 	
 ]

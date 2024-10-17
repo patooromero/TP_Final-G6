@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block titulo %}Denuncias{% endblock titulo %}
+
+{% block contenido %}
+<h1>Página de Denuncias</h1>
+
+<!-- En templates/reportar_noticia.html -->
+<h1>Reportar noticia: {{ noticia.titulo }}</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enviar denuncia</button>
+</form>
+
+{% endblock contenido %}

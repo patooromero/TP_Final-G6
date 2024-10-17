@@ -3,7 +3,6 @@
 
 {% block titulo %}NOTICIAS{% endblock titulo %}
 
-
 {% block contenido %}
 	<h1>ACA VOY A DETALLAR UNA NOTICIA</h1>
 		<img src="{{noticia.imagen.url}}" width="500" height="500" class="centro-imagen">		
@@ -15,6 +14,13 @@
 		{% if request.user.is_authenticated and request.user == noticia.usuario %}
 			<a href="{% url 'noticias:eliminar_noticia' noticia.pk %}">Eliminar</a>
 	    {% endif %}
+
+    <!-- Enlace para denunciar la noticia -->
+    {% if request.user.is_authenticated %}
+        <br><br>
+        <a href="{% url 'noticias:reportar_noticia' noticia.pk %}">Denunciar esta noticia</a>
+    {% endif %}	
+
 		<br><br>
 		<br>
 		<form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}

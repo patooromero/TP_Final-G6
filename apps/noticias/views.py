@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-from .models import Noticia, Categoria, Comentario
-from .forms import NoticiaForm, CategoriaForm
+from django.contrib import messages
+from .models import Noticia, Categoria, Comentario, Denuncia
+from .forms import NoticiaForm, CategoriaForm, DenunciaForm
 from apps.usuarios.models import Usuario
 
 
@@ -95,12 +96,60 @@ def perfil_usuario(request, pk):
     contexto = {'usuario': usuario, 'lista_usuarios': n}
     return render(request, 'noticias/perfil_usuario.html', contexto)
 
-# @login_required
-# def perfil_usuario_list(request, pk):
-#     usuario = get_object_or_404(Usuario, pk=pk)
-#     usuarios = Usuario.objects.all()
-#     contexto = {'usuario': usuario, 'usuarios': usuarios}
-#     return render(request, 'noticias/perfil_usuario.html', contexto)
+@login_required    
+def reportar_noticia(request, noticia_id):
+    noticia = get_object_or_404(Noticia, id=noticia_id)
+    if request.method == 'POST':
+        form = DenunciaForm(request.POST)
+        if form.is_valid():
+            denuncia = form.save(commit=False)
+            denuncia.usuario = request.user  # Asegúrate de que el usuario esté autenticado
+            denuncia.noticia = noticia
+            denuncia.save()
+            messages.success(request, 'Tu denuncia ha sido enviada con éxito.') #mensaje de que se guardo la denuncia
+            return redirect('noticias:detalle', pk=noticia.id)  # Redirige a la vista de detalle de la noticia
+    else:
+        form = DenunciaForm()
+    return render(request, 'noticias/reportar_noticia.html', {'form': form, 'noticia': noticia})
+
+@login_required
+def denuncias(request):
+    denuncias = Denuncia.objects.all()  # Obtén todas las denuncias
+    return render(request, 'noticias/denuncias.html', {'denuncias': denuncias})
+
+@login_required
+def gestionar_denuncia(request, id):
+    denuncia = get_object_or_404(Denuncia, id=id)
+
+    if request.method == 'POST':
+        accion = request.POST.get('accion')
+        if accion == 'aprobar':
+            # Lógica para aprobar la denuncia
+            messages.success(request, 'Denuncia aprobada.')
+        elif accion == 'rechazar':
+            # Lógica para rechazar la denuncia
+            messages.error(request, 'Denuncia rechazada.')
+        return redirect('noticias:denuncias')
+
+    return render(request, 'noticias/gestion_denuncia.html', {'denuncia': denuncia})
+
+@login_required
+def eliminar_denuncia(request, id):
+    # Obtener la denuncia o mostrar 404 si no existe
+    denuncia = get_object_or_404(Denuncia, id=id)
+
+    if request.method == 'POST':
+        # Eliminar la denuncia
+        denuncia.delete()
+        messages.success(request, 'Denuncia eliminada con éxito.')
+        return redirect('noticias:denuncias')  # Redirigir a la lista de denuncias
+
+    # Si no es un POST, probablemente querías mostrar un mensaje de confirmación
+    return render(request, 'noticias/confirmar_eliminacion.html', {'denuncia': denuncia})
+
+
+
+
 
 
 
