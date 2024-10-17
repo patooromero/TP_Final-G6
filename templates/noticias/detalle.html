@@ -3,35 +3,47 @@
 
 {% block titulo %}NOTICIAS{% endblock titulo %}
 
-
 {% block contenido %}
-	<h1>ACA VOY A DETALLAR UNA NOTICIA</h1>
-		<img src="{{noticia.imagen.url}}" width="500" height="500" class="centro-imagen">		
-		<p>TITULO: {{noticia.titulo}}</p>		
-		<p>FECHA: {{noticia.fecha}}</p>
-		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
-		<p>CUERPO: {{noticia.cuerpo}}</p>
-		<p>Publicado por: {{ noticia.usuario.nombre }} {{ noticia.usuario.apellido }}</p>
-		{% if request.user.is_authenticated and request.user == noticia.usuario %}
-			<a href="{% url 'noticias:eliminar_noticia' noticia.pk %}">Eliminar</a>
-	    {% endif %}
-		<br><br>
-		<br>
-		<form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}
-			<textarea name="comentario" maxlength="1500"> </textarea>
-			<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
-			<input type="submit" value="GUARDAR">
-		</form>
-		<br><br><br>
-		<h3>COMENTARIOS</h3>
-		{% for com in comentarios %}
-		{% if user == com.usuario %}
-			<a href="">borrar</a>
-		{% endif %}
-		<strong>FECHA:{{com.fecha}}</strong><br>
-		<strong>USUARIO:{{com.usuario}}</strong><br>
-		<p>{{com.texto}}</p>
-		{% endfor %}
-		<a href="{% url 'noticias:listar' %}">VOLVER</a>
-{% endblock contenido %}
+	{% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+	
+    <h1>ACA VOY A DETALLAR UNA NOTICIA</h1>
+    <img src="{{noticia.imagen.url}}" width="500" height="500" class="centro-imagen">		
+    <p>TITULO: {{noticia.titulo}}</p>		
+    <p>FECHA: {{noticia.fecha}}</p>
+    <p>CATEGORIA: {{noticia.categoria_noticia}}</p>
+    <p>CUERPO: {{noticia.cuerpo}}</p>
+    <p>Publicado por: {{ noticia.usuario.nombre }} {{ noticia.usuario.apellido }}</p>
+    
+    {% if request.user.is_authenticated and request.user == noticia.usuario %}
+        <a href="{% url 'noticias:eliminar_noticia' noticia.pk %}">Eliminar</a>
+    {% endif %}
 
+    <!-- Enlace para denunciar la noticia -->
+    {% if request.user.is_authenticated %}
+        <br><br>
+        <a href="{% url 'noticias:reportar_noticia' noticia.pk %}">Denunciar esta noticia</a>
+    {% endif %}	
+
+    <br><br>
+    <br>
+    <form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}
+        <textarea name="comentario" maxlength="1500"></textarea>
+        <input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
+        <input type="submit" value="GUARDAR">
+    </form>
+    <br><br><br>
+    <h3>COMENTARIOS</h3>
+    {% for com in comentarios %}
+        {% if user == com.usuario %}
+            <a href="">borrar</a>
+        {% endif %}
+        <strong>FECHA: {{com.fecha}}</strong><br>
+        <strong>USUARIO: {{com.usuario}}</strong><br>
+        <p>{{com.texto}}</p>
+    {% endfor %}
+    <a href="{% url 'noticias:listar' %}">VOLVER</a>
+{% endblock contenido %}

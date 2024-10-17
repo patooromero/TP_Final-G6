@@ -1,0 +1,31 @@
+<!-- En templates/denuncias.html -->
+{% extends 'base.html' %}
+{% block titulo %}Denuncias{% endblock titulo %}
+
+{% block contenido %}
+<h1>Página de Denuncias</h1>
+
+{% if denuncias %}
+    <ul>
+        {% for denuncia in denuncias %}
+            <li style="margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+                <strong>Denunciante:</strong> {{ denuncia.usuario.username }}<br>
+                <strong>Noticia:</strong> <a href="{% url 'noticia_detalle' denuncia.noticia.id %}">{{ denuncia.noticia.titulo }}</a><br>
+                <strong>Razón:</strong> {{ denuncia.razon }}<br>
+                <strong>Fecha:</strong> {{ denuncia.fecha|date:"d M Y" }}  <!-- Formato de fecha -->
+                
+                <!-- Acciones para el administrador -->
+                {% if request.user.is_staff %}
+                    <br>
+                    <a href="{% url 'gestionar_denuncia' denuncia.id %}" class="btn btn-warning">Revisar Denuncia</a>
+                    <a href="{% url 'eliminar_denuncia' denuncia.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta denuncia?')">Eliminar Denuncia</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay denuncias registradas.</p>
+{% endif %}
+{% endblock contenido %}
+
+

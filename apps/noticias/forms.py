@@ -1,5 +1,5 @@
 from django import forms
-from .models import Noticia, Categoria
+from .models import Noticia, Categoria, Denuncia 
 
 class NoticiaForm(forms.ModelForm):
     class Meta:
@@ -18,3 +18,9 @@ class CategoriaForm(forms.ModelForm):
         # widgets = {
         #     'nome': forms.TextInput(attrs={'class': 'form-control'}),
         # }
+
+class DenunciaForm(forms.ModelForm):
+    class Meta:
+        model = Denuncia
+        fields = ['razon']  # Solo pedimos la razón de la denuncia
+

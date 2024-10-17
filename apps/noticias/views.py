@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Noticia, Categoria, Comentario
+from .models import Noticia, Categoria, Comentario, Denuncia
 from django.urls import reverse_lazy
-from .forms import NoticiaForm, CategoriaForm
+from .forms import NoticiaForm, CategoriaForm, DenunciaForm
 from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
 
 @login_required
 def Crear_Categoria(request):
@@ -95,6 +96,27 @@ def eliminar_noticia(request, pk):
         return redirect('noticias:listar')
     else:
         return render(request, 'noticias/error.html', {'mensaje': 'No tienes permiso para eliminar esta noticia'})
+
+@login_required    
+def reportar_noticia(request, noticia_id):
+    noticia = get_object_or_404(Noticia, id=noticia_id)
+    if request.method == 'POST':
+        form = DenunciaForm(request.POST)
+        if form.is_valid():
+            denuncia = form.save(commit=False)
+            denuncia.usuario = request.user  # Asegúrate de que el usuario esté autenticado
+            denuncia.noticia = noticia
+            denuncia.save()
+            messages.success(request, 'Tu denuncia ha sido enviada con éxito.') #mensaje de que se guardo la denuncia
+            return redirect('noticias:detalle', pk=noticia.id)  # Redirige a la vista de detalle de la noticia
+    else:
+        form = DenunciaForm()
+    return render(request, 'noticias/reportar_noticia.html', {'form': form, 'noticia': noticia})
+
+@login_required
+def denuncias(request):
+    denuncias = Denuncia.objects.all()  # Obtén todas las denuncias
+    return render(request, 'denuncias.html', {'denuncias': denuncias})
 
 #{'nombre':'name', 'apellido':'last name', 'edad':23}
 #EN EL TEMPLATE SE RECIBE UNA VARIABLE SEPARADA POR CADA CLAVE VALOR
