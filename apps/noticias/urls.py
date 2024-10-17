@@ -22,7 +22,6 @@ urlpatterns = [
     
 	path('perfil/<pk>/', views.perfil_usuario, name='perfil_usuario'),
     
-	path('perfil_usuario/<pk>/', views.perfil_usuario_list, name='perfil_usuario_list'),    
-    
+   
 	
 ]

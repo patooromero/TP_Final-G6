@@ -91,15 +91,16 @@ def eliminar_noticia(request, pk):
 @login_required
 def perfil_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
-    contexto = {'usuario': usuario}
+    n =Usuario.objects.all() #RETORNA UNA LISTA DE OBJETOS
+    contexto = {'usuario': usuario, 'lista_usuarios': n}
     return render(request, 'noticias/perfil_usuario.html', contexto)
 
-@login_required
-def perfil_usuario_list(request, pk):
-    usuario = get_object_or_404(Usuario, pk=pk)
-    usuarios = Usuario.objects.all()
-    contexto = {'usuario': usuario, 'usuarios': usuarios}
-    return render(request, 'noticias/perfil_usuario.html', contexto)
+# @login_required
+# def perfil_usuario_list(request, pk):
+#     usuario = get_object_or_404(Usuario, pk=pk)
+#     usuarios = Usuario.objects.all()
+#     contexto = {'usuario': usuario, 'usuarios': usuarios}
+#     return render(request, 'noticias/perfil_usuario.html', contexto)
 
 
 
