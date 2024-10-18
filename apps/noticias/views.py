@@ -147,14 +147,17 @@ def eliminar_denuncia(request, id):
 @user_passes_test(lambda u: u.is_superuser)
 def bloquear_usuario(request, user_id):
     usuario = get_object_or_404(Usuario, id=user_id)
+    
     if usuario.is_active:
         usuario.is_active = False
-        usuario.save()
         messages.success(request, f'El usuario {usuario.username} ha sido bloqueado.')
     else:
-        messages.warning(request, f'El usuario {usuario.username} ya estaba bloqueado.')
+        usuario.is_active = True
+        messages.success(request, f'El usuario {usuario.username} ha sido desbloqueado.')
     
+    usuario.save()
     return redirect('noticias:perfil_usuario', request.user.pk)
+
 
 
 

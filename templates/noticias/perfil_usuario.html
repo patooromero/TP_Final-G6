@@ -34,9 +34,9 @@
             {% if request.user.is_superuser %}
                 <td>
                     {% if u.is_active %}
-                    <a href="{% url 'noticias:bloquear_usuario' u.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas bloquear a este usuario?')">Bloquear</a>
+                        <a href="{% url 'noticias:bloquear_usuario' u.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas bloquear a este usuario?')">Bloquear</a>
                     {% else %}
-                        <span>Bloqueado</span>
+                        <a href="{% url 'noticias:bloquear_usuario' u.id %}" class="btn btn-success" onclick="return confirm('¿Estás seguro de que deseas desbloquear a este usuario?')">Desbloquear</a>
                     {% endif %}
                 </td>
             {% endif %}
@@ -44,6 +44,7 @@
         {% endfor %}
     </table>
 {% endblock contenido %}
+
 
 
 
