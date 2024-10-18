@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, get_user_model
 from django.core.exceptions import ValidationError
 from .models import Usuario
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth.views import LoginView
 class RegistroForm(UserCreationForm):
     email = forms.EmailField(label='Correo', required=True)
     first_name = forms.CharField(label='Nombre', required=True)
@@ -45,3 +45,9 @@ class CustomAuthenticationForm(AuthenticationForm):
                 _("Este usuario está bloqueado."),
                 code='inactive',
             )
+            
+# Vista de login personalizado
+class CustomLoginView(LoginView):
+    # Usar el formulario de autenticación personalizado que verifica si el usuario está bloqueado
+    form_class = CustomAuthenticationForm
+    template_name = 'usuarios/login.html'
