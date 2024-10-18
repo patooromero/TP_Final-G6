@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -120,7 +120,6 @@ def denuncias(request):
 @login_required
 def gestionar_denuncia(request, id):
     denuncia = get_object_or_404(Denuncia, id=id)
-
     if request.method == 'POST':
         accion = request.POST.get('accion')
         if accion == 'aprobar':
@@ -130,25 +129,32 @@ def gestionar_denuncia(request, id):
             # Lógica para rechazar la denuncia
             messages.error(request, 'Denuncia rechazada.')
         return redirect('noticias:denuncias')
-
     return render(request, 'noticias/gestion_denuncia.html', {'denuncia': denuncia})
 
 @login_required
 def eliminar_denuncia(request, id):
     # Obtener la denuncia o mostrar 404 si no existe
     denuncia = get_object_or_404(Denuncia, id=id)
-
     if request.method == 'POST':
         # Eliminar la denuncia
         denuncia.delete()
         messages.success(request, 'Denuncia eliminada con éxito.')
         return redirect('noticias:denuncias')  # Redirigir a la lista de denuncias
-
     # Si no es un POST, probablemente querías mostrar un mensaje de confirmación
     return render(request, 'noticias/confirmar_eliminacion.html', {'denuncia': denuncia})
 
-
-
+# Asegurarse de que solo los superusuarios puedan acceder
+@user_passes_test(lambda u: u.is_superuser)
+def bloquear_usuario(request, user_id):
+    usuario = get_object_or_404(Usuario, id=user_id)
+    if usuario.is_active:
+        usuario.is_active = False
+        usuario.save()
+        messages.success(request, f'El usuario {usuario.username} ha sido bloqueado.')
+    else:
+        messages.warning(request, f'El usuario {usuario.username} ya estaba bloqueado.')
+    
+    return redirect('noticias:perfil_usuario', request.user.pk)
 
 
 

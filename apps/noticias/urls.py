@@ -1,6 +1,7 @@
 
 from django.urls import path, include
 from . import views
+from .views import bloquear_usuario
 
 app_name = 'noticias'
 
@@ -29,5 +30,7 @@ urlpatterns = [
 	path('gestionar/<int:id>/', views.gestionar_denuncia, name='gestionar_denuncia'),
     
 	path('eliminar/<int:id>/', views.eliminar_denuncia, name='eliminar_denuncia'),
+    
+    path('bloquear_usuario/<int:user_id>/', views.bloquear_usuario, name='bloquear_usuario'),
 	
 ]

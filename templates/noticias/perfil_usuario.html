@@ -10,8 +10,9 @@
     <p>Apellido: {{ usuario.last_name }}</p>
     <p>Email: {{ usuario.email }}</p>
     <p>Fecha de registro: {{ usuario.date_joined }}</p>
-    <p>Ultima conexión: {{ usuario.last_login }}</p>
+    <p>Última conexión: {{ usuario.last_login }}</p>
     <br><br><br>
+    
     <h2>Usuarios registrados</h2>
     <br>
     <table>
@@ -20,6 +21,9 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Email</th>
+            {% if request.user.is_superuser %}
+                <th>Acciones</th>
+            {% endif %}
         </tr>
         {% for u in lista_usuarios %}
         <tr>
@@ -27,10 +31,20 @@
             <td>{{ u.first_name }}</td>
             <td>{{ u.last_name }}</td>
             <td>{{ u.email }}</td>
+            {% if request.user.is_superuser %}
+                <td>
+                    {% if u.is_active %}
+                    <a href="{% url 'noticias:bloquear_usuario' u.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas bloquear a este usuario?')">Bloquear</a>
+                    {% else %}
+                        <span>Bloqueado</span>
+                    {% endif %}
+                </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
 {% endblock contenido %}
+
 
 
 
