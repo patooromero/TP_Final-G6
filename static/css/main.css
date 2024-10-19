@@ -38,7 +38,6 @@ body {
     flex-direction: column;
 }
 
-
 .logo {
     display: flex;
     text-align: center;
@@ -63,6 +62,23 @@ main {
 
 .submenu {
     font-size: 18px;
+}
+
+main > div.submenu a {
+    font-size: 1.5em;
+    color: #ffffff; /* Color de los enlaces igual que en el nav */
+    text-decoration: none; /* Sin subrayado */
+    text-align: center; /* Centra el contenido */
+    transition: all 0.3s; /* Transición suave para hover */
+    padding: 20px;
+}
+
+main > div.submenu a:hover {
+    font-size: 1.5em;
+    text-decoration: none; /* Sin subrayado al pasar el ratón */
+    color: #007bff; /* Mismo color de hover que en el header */
+    transform: scale(1.2); /* Mismo efecto de escala que en el header */
+    padding: 20px;
 }
 
 h2 {
@@ -147,6 +163,7 @@ h3 {
     padding: 15px 20px; /* Aumenta el padding para hacer el botón más grande */
     font-size: 16px; /* Aumenta el tamaño de la fuente */
     border-radius: 5px; /* Ajusta el radio de los bordes si lo deseas */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .btn-primary:hover {
@@ -156,22 +173,6 @@ h3 {
 
 .container {
     margin-top: 50px; /* Espacio superior */
-}
-
-.card {
-    background: rgba(0, 0, 0, 0.7); /* Fondo negro con opacidad */
-    border-radius: 10px; /* Bordes redondeados */
-    overflow: hidden; /* Previene que el contenido sobresalga */
-}
-
-.card-header {
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo del encabezado más oscuro */
-    color: white; /* Color del texto */
-}
-
-.card-body {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo del cuerpo con opacidad */
-    padding: 20px; /* Espaciado interno */
 }
 
 .form-group {
@@ -241,5 +242,3 @@ footer {
     transform: scale(1.2); /* Mismo efecto de escala que en el header */
     text-decoration: none; /* Sin subrayado al pasar el ratón */
 }
-
-

@@ -11,8 +11,10 @@
     <div id="particles-js"></div>
     <header class="header">
         <div class="logo">
-            <img src="{% static 'img/logog6.png' %}" alt="" height="150"> <!-- Ruta corregida -->
-        </div>    
+            <a href="{% url 'home' %}">
+                <img src="{% static 'img/logog6.png' %}" alt="" height="150"> <!-- Ruta corregida -->
+            </a>
+            </div>    
         <div class="titulo">
             <h1>G6 Blog de Divulgación IA</h1> <!-- Título del encabezado -->
         </div>        
